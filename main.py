@@ -28,18 +28,15 @@ for x in range(9):
 best_place = 4
 
 for grid in winning_grids:
-    is_risk = False
+    risk_score = 0
     for index in grid:
         if current_board[index] == opponent_mark:
-            is_risk = True
-            break
-
-    if is_risk:
-        for index in grid:
-            if current_board[index] == "_":
-                placement_scores[index] += 1
-                if placement_scores[index] > placement_scores[best_place]:
-                    best_place = index
+            risk_score += 1
+    for index in grid:
+        if current_board[index] == "_":
+            placement_scores[index] += risk_score
+            if placement_scores[index] > placement_scores[best_place]:
+                best_place = index
 
 # Now we should have a good idea of where to place our own mark
 new_board = current_board[0:best_place] + bot_mark + current_board[best_place + 1 :]
